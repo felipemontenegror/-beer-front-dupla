@@ -1,90 +1,148 @@
 import React, { useState } from 'react'
-import axios from 'axios'
-//import { ClientHTTP } from '../../config/config'
-//import { CreateUser } from '../services/user'
+import { createUser, showUserId, updateUser } from '../../services/user'
+// import Loading from '../loading/loading'
+import Alert from '../alert/index.js'
+import './user.css'
+import Nav from '../layout/nav/nav'
+import { useHistory, useParams } from 'react-router-dom'
+import { useEffect } from 'react'
 
-const UserCreate = () => {
+const UserCreate = (props) => {
 
-        const [form, setForm] = useState({
-            is_active: true,
-            is_admin: false
+    const [isSubmit, setIsSubmit] = useState(false)
+    const [isEdit, setisEdit] = useState(false)
+    const [alert, setAlert] = useState({})
+    const history = useHistory()
+    const { id } = useParams()
+    const methodUser = isEdit ? updateUser : createUser
+
+    const [form, setForm] = useState({
+        is_active: true,
+        is_admin: false
+    })
+
+
+    useEffect(() => {
+
+        const getShowUser = async () => {
+            const user = await showUserId(id)
+            if (user.data.senha) {
+                delete user.data.senha
+            }
+            setForm(user.data)
+        }
+
+
+        if (id) {
+            setisEdit(true)
+            getShowUser()
+        }
+
+    }, [id])
+
+
+    const handleChange = (event) => {
+        setForm({
+            ...form,
+            [event.target.name]: event.target.value
         })
+        return;
+    }
 
-        const handleChange = (event) => {
+    const formIsValid = () => {
+        return form.nome && form.email && form.senha
+    }
+
+    const submitForm = async (event) => {
+
+        try {
+            setIsSubmit(true)
+            await methodUser(form)
             setForm({
-                ...form,
-                [event.target.name]: event.target.value
+                is_active: true,
+                is_admin: false
             })
-            return;
-            
-        }
-
-        const formIsValid = () => {
-            return form.name && form.email && form.password
-        }
-
-        const submit = (event) => {
-            console.log('form', form)
-            axios.post('http://localhost:3001/user', form)
-            //clientHTTP.post('/user', form)
-            //CreateUser('form', form)
-            .then((resposta) => {
-                alert("Formulário enviado com sucesso")
-                setForm({
-                    is_active: true,
-                    is_admin: false
-                })
+            setAlert({
+                type: "success",
+                message: 'Seu formulário foi enviado com sucesso',
+                show: true
             })
-            .catch(err => console.log('deu ruim'))
-        }
+            setIsSubmit(false)
 
-        return (
+            setTimeout(() =>
+                history.push('/')
+                , 3000)
+        } catch (e) {
+            setAlert({
+                type: "error",
+                message: 'Ocorreu um erro no cadastro',
+                show: true
+            })
+            setIsSubmit(false)
+        }
+    }
+
+    return (
+        <React.Fragment>
+            <Nav name="Lista" to="/" />
             <section>
-                <div className="create_users">
-                    <form action="" className="form_login">
+                <Alert type={alert.type || ""} message={alert.message || ""} show={alert.show || false} />
+
+                <div className="create_user">
+                    <div className="form_login">
                         <div>
-                            <label htmlFor="auth_name">Nome: </label>
-                            <input id="auth_name" type="text" name="name" onChange={handleChange} value={form.name || ""} placeholder="Digite seu nome aqui" />
+                            <label htmlFor="auth_nome">Nome:</label>
+                            <input disabled={isSubmit} type="text" id="auth_nome" name="nome" onChange={handleChange} value={form.nome || ""} placeholder="Insira o seu nome" />
                         </div>
                         <div>
-                            <label htmlFor="email">E-mail: </label>
-                            <input id="auth_email" type="email" name="email" onChange={handleChange} value={form.email || ""} placeholder="email@provedor" />
+                            <label htmlFor="auth_email">Email:</label>
+                            <input disabled={isSubmit || isEdit} type="email" id="auth_email" name="email" onChange={handleChange} value={form.email || ""} placeholder="Insira sua senha" />
                         </div>
                         <div>
-                            <label htmlFor="auth_password">Senha: </label>
-                            <input id="auth_password" type="password" name="password" onChange={handleChange} value={form.password || ""} placeholder="Digite sua Senha" />
+                            <label htmlFor="auth_password">Senha:</label>
+                            <input disabled={isSubmit} type="password"
+                                id="auth_password" name="senha"
+                                onChange={handleChange}
+                                value={form.senha || ""}
+                                placeholder={isEdit ? `Atualize sua senha ` : 'Informe sua senha'} />
                         </div>
 
                         <div>
-                            <label htmlFor="auth_fabricante">Fabricante: </label>
-                            <input id="auth_fabricante" type="fabricante" name="fabricante" onChange={handleChange} value={form.fabricnate || ""} placeholder="Digite a Fabricante" />
+                            <label htmlFor="auth_fabricante">Fabricante:</label>
+                            <input disabled={isSubmit || isEdit} type="fabricante" id="auth_fabricante" name="fabricante" onChange={handleChange} value={form.fabricante || ""} placeholder="Insira o fabricante da cerveja" />
                         </div>
 
                         <div>
-                            <label htmlFor="auth_nacionalidade">Nacionalidade: </label>
-                            <input id="auth_nacionalidade" type="nacionalidade" name="nacionalidade" onChange={handleChange} value={form.nacionalidade || ""} placeholder="Digite a Nacionalidade" />
+                            <label htmlFor="auth_nacionalidade">Nacionalidade:</label>
+                            <input disabled={isSubmit || isEdit} type="nacionalidade" id="auth_nacionalidade" name="nacionalidade" onChange={handleChange} value={form.nacionalidade || ""} placeholder="Insira a nacionalidade da cerveja" />
                         </div>
 
                         <div>
-                            <label htmlFor="auth_tipo">Tipo: </label>
-                            <input id="auth_tipo" type="tipo" name="tipo" onChange={handleChange} value={form.tipo || ""} placeholder="Digite a Tipo" />
+                            <label htmlFor="auth_tipo">Tipo:</label>
+                            <input disabled={isSubmit || isEdit} type="tipo" id="auth_tipo" name="nacionalidade" onChange={handleChange} value={form.tipo || ""} placeholder="Insira o tipo da cerveja" />
                         </div>
 
                         <div>
-                            <label htmlFor="auth_teor">Teor: </label>
-                            <input id="auth_teor" type="teor" name="teor" onChange={handleChange} value={form.teor || ""} placeholder="Digite o teor alcoolico" />
+                            <label htmlFor="auth_teor">Teor Alcoólico:</label>
+                            <input disabled={isSubmit || isEdit} type="teor" id="auth_teor" name="teor" onChange={handleChange} value={form.teor || ""} placeholder="Insira o teor alcoólico da cerveja" />
                         </div>
 
                         <div>
-                            <label htmlFor="auth_ibu">IBU: </label>
-                            <input id="auth_ibu" type="ibu" name="ibu" onChange={handleChange} value={form.ibu || ""} placeholder="Digite o IBU " />
+                            <label htmlFor="auth_ibu">IBU:</label>
+                            <input disabled={isSubmit || isEdit} type="ibu" id="auth_ibu" name="ibu" onChange={handleChange} value={form.ibu || ""} placeholder="Insira o IBU da cerveja" />
                         </div>
 
+                        <button disabled={!formIsValid()} onClick={submitForm}>
+                            {isEdit ? "Atualizar" : "Cadastrar"}
+                        </button>
+                    </div>
+                    <br />
+                    {/* <Loading show={isSubmit}/> */}
+                    {isSubmit ? <div>Carregando....</div> : ""}
 
-                        <button disabled={!formIsValid()} onClick={submit}>Cadastrar</button>         
-                    </form>
                 </div>
-            </section>
+            </section >
+        </React.Fragment>
 
     )
 }

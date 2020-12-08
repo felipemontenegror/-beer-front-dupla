@@ -1,46 +1,61 @@
-import React, { Fragment, useState } from 'react'
-import Footer from '../../components/footer/footer'
+import React, { useState } from 'react'
+import { saveToken } from '../../config/auth'
 import './login.css'
+import { useHistory } from 'react-router-dom';
+import { authentication } from '../../services/auth';
+import { clientHttp } from '../../config/config';
+import imgLogo from '../../../src/assets/img/beer.png'
 
 const Login = (props) => {
-    const [form, setForm] = useState({})
+    const [auth, setAuth] = useState({
+        email: 'exemplo@cervejeiros.com.br',
+        senha: 'cerveja'
+    })
+
+    const history = useHistory()
 
     const handleChange = (event) => {
-        setForm({
-            ...form,
+        setAuth({
+            ...auth,
             [event.target.name]: event.target.value
         })
-        return
+        return;
     }
 
-    const formIsValid = () => {
-        return form.email && form.password
-    }
+    const isValidSubmit = () => auth.email && auth.senha
 
-    const submitForm = (e) => {
-        e.preventDefault()
+    const submitLogin = async () => {
+        if (isValidSubmit()) {
+            const { data: { token } } = await authentication(auth)
+            clientHttp.defaults.headers['x-auth-token'] = token;
+            saveToken(token)
+            history.push('/')
+
+        }
+        return;
     }
 
     return (
-        <Fragment>
         <section>
-            <form className="form_login">
-                <div className="form-login">
-                    <label htmlFor="email">Email:</label>
-                    <input onChange={(e) => handleChange(e)} type="text" value={form.email || ""} name="email" id="email" />
+            <div id="login">
+                <div className="form_login">
+                    <div className="copyRight">
+                        <img src={imgLogo} alt="" />
+                    </div>
+                    <div>
+                        <label htmlFor="auth_login">Login</label>
+                        <input type="email" id="email" name="email" onChange={handleChange} value={auth.email || ""} placeholder="Insira seu e-mail" />
+                    </div>
+                    <div>
+                        <label htmlFor="auth_password">Senha</label>
+                        <input type="password" id="senha" name="senha" onChange={handleChange} value={auth.senha || ""} placeholder="Insira sua senha" />
+                    </div>
+                    <button disabled={!isValidSubmit()} onClick={submitLogin}>Entrar</button>
                 </div>
-                <div className="form-group">
-                    <label htmlFor="password">Senha:</label>
-                    <input onChange={(e) => handleChange(e)} value={form.password || ""} type="password" name="password" id="password" />
-                </div>
-                <button onClick={() => props.changePage('List')}>Login</button>
-
-            </form >
+            </div>
         </section>
-        
-        </Fragment>
-        
     )
 }
 
-export default Login
+
+export default Login;

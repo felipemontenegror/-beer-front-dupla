@@ -2,14 +2,14 @@
 /* ## HEADER  */
 
 header {
-    background-color: #033468;
+    background-color:#FFCC33;
     display: flex;
     padding: 35px;
-    color: yellow
+    color: white;
 }
 
 header .title {
-    color: yellow;
+    color: #033468;
     justify-content: start;
     flex: 1;
     font-size: 20px;
@@ -28,3 +28,8 @@ header .title {
 .logout:hover {
     background-color: #af2331;
 }
+
+.logobottom{
+    padding-top: 0px;
+    margin: 10px;
+  }

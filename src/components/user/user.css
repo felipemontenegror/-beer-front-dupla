@@ -1,7 +1,7 @@
 /* ## CREATE USER  */
 
 .create_user {
-    
+    max-width: 600px;
     padding: 20px 35px;
 }
 
@@ -10,14 +10,14 @@
 table {
     margin: 0 35px;
     border-collapse: collapse;
-    border: 1px solid red;
+    border: 1px solid #ddd;
     width: calc(100vw - 70px);
     transition: 2s;
     font-size: 12px;
 }
 
 table thead {
-    background: #252323;
+    background-color: #033468;
     color: #fff
 }
 
@@ -54,23 +54,15 @@ table td:nth-child(5) {
 table td span {
     color: #fff;
     margin: 2px 10px;
-    background-color: #352323;
+    background-color: #007BFF;
     border-radius: 5px;
     padding: 3px 7px;
 }
 
 table td span:nth-child(1) {
-    background-color: #353535;
+    background-color: #007BFF;
 }
 
 table td span:nth-child(2) {
     background-color: #DC3545;
-}
-
-.loading {
-    background-color: rgb(0, 174, 255);
-    min-height: 400px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }

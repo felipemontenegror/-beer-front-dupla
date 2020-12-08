@@ -1,16 +1,20 @@
-import { clientHTTP } from ("../config/config")
+import { clientHttp } from '../config/config.js'
 
-const createUser = (data) => clientHTTP.post('/user', data)
+const createUser = (data) => clientHttp.post(`/user`, data)
 
-const ListUser = () => clientHTTP.get('/user')
+const updateUser = (data) => clientHttp.put(`/user/${data._id}`, data)
+// TODO: Verificar no back  a atualização
 
-const DeleteUser = (id) => clientHTTP.delete(`/user/${id}`)
+const ListUser = () => clientHttp.get(`/user`)
 
-const EditUser = (id) => clientHTTP.patch(`/user/${id}`)
+const DeleteUser = (id) => clientHttp.delete(`/user/${id}`)
 
-export{
+const showUserId = (id) => clientHttp.patch(`/user/${id}`)
+
+export {
     createUser,
     ListUser,
     DeleteUser,
-    EditUser
+    showUserId,
+    updateUser
 }

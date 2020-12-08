@@ -44,9 +44,7 @@ const Alert = (props) => {
 
     return (
         <React.Fragment>
-            <div className="boxAlert">
-                {checkAlert()}
-            </div>
+            {checkAlert()}
         </React.Fragment>
     )
 

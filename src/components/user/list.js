@@ -1,40 +1,28 @@
 import React, { useEffect, useState } from 'react'
-import { ListUser, DeleteUser, UpdateUser } from '../services/user'
+import { ListUser, DeleteUser } from '../../services/user'
 import Loading from '../loading/loading'
+import Nav from '../../components/layout/nav/nav'
 
-
-
-import './user.css'
-
-
-const UserList = () => {
+const UserList = (props) => {
 
     const [users, setUsers] = useState([])
-    const [loading, setLoading] = useState(false)
+    const [loading, setloading] = useState(false)
 
     const getList = async () => {
-
         try {
-            setLoading(true)
-            const users = await ListUser()
-            setUsers(users.data)
-            setLoading(false)            
-        } catch (error) {
-            console.log('error', error)
-        }
- 
-    }
-
-    const editUser = async ({ _id: id, nome }) => {
-        try {
-            if (window.confirm(`Voce deseja editar o usuário ${nome}`)) {
-                await UpdateUser(id)
-                getList()
+            setloading(true)
+            const usersAll = await ListUser()
+            if (usersAll) {
+                setUsers(usersAll.data)
             }
+            setloading(false)
         } catch (error) {
-            setLoading(false)
+            setloading(false)
         }
     }
+
+    const editUser = (user) => props.history.push(`/edit/${user._id}`)
+
 
     const deleteUser = async ({ _id: id, nome }) => {
         try {
@@ -43,50 +31,66 @@ const UserList = () => {
                 getList()
             }
         } catch (error) {
-            setLoading(false)
+            setloading(false)
         }
     }
 
     const verifyIsEmpty = users.length === 0
 
-    const mountUsers = () => users.map((it, index)=> (
 
-            <tr key='item'>
-                <td>{it.name}</td>
-                <td>{it.email}</td>
-                <td>{it.password}</td>
+    const montarTabela = () => {
+
+        const linhas = users.map((user, index) => (
+            <tr key={index}>
+                <td>{user.is_active ? "SIM" : "NÃO"}</td>
+                <td>{user.is_admin ? "SIM" : "NÃO"}</td>
+                <td>{user.nome}</td>
+                <td>{user.email}</td>
                 <td>
-                    <span onClick={() => editUser(it)}>Editar</span> |
-                    <span onClick={() => deleteUser(it)}>Excluir</span>
+                    <span onClick={() => editUser(user)} >Editar</span> |
+                    <span onClick={() => deleteUser(user)}>Excluir </span>
                 </td>
             </tr>
-
         ))
 
-    useEffect(() => {
-        getList()
-    },[])    
-
-    return users ? (
-            <div className="list_user">
-                {loading ? <Loading show={users ? false : true}  /> : (
-                <table border="1">
-                    <thead>
-                        <tr>
-                            <th>NOME</th>
-                            <th>EMAIL</th>
-                            <th>SENHA</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {mountUsers()}                        
-                    </tbody>
-                </table>
-                )}               
-            </div>
-        
-    ) : ""
-
+        return !verifyIsEmpty ? (
+            <table >
+                <thead>
+                    <tr>
+                        <th>ATIVO</th>
+                        <th>ADMIN</th>
+                        <th>NOME</th>
+                        <th>EMAIL</th>
+                        <th>AÇÕES</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {linhas}
+                </tbody>
+            </table>
+        ) : ""
     }
+
+
+
+    useEffect(function () {
+        getList()
+    }, [])
+
+
+    //render
+    return (
+        <div>
+            <Nav name="Novo" to="/create" />
+            <section>
+                <div className="list_user">
+                    <Loading show={loading} />
+                    {montarTabela()}
+                </div>
+            </section>
+        </div>
+
+    )
+}
 
 export default UserList

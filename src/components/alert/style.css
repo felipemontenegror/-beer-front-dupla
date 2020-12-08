@@ -1,8 +1,6 @@
-.boxAlert {
-    margin: 10px auto;
-}
-
 .alert {
+    min-width: 80vw;
+    margin: 10px 35px;
     padding: 20px 15px;
     margin-bottom: 20px;
     border: 1px solid transparent;

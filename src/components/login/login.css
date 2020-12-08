@@ -1,67 +1,21 @@
-main {
-  
+#login {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 3%;
 }
 
-.form_login {
-  margin: 0;
-  position: absolute;          
-  top: 50%;                    
-  transform: translate(200%, -50%)
+#login .form_login {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  padding: 30px;
+  border: 1px solid yellow;
+  border-radius: 10px;
 }
 
-.form_login input{
-/*form input {*/
-  margin-bottom: 10px;
-  padding: 10px;
-  border: none;
-  transition: 1s;
+#login .form_login button {
+  align-self: flex-end;
+  margin-top: 20px;
 }
-
-.form_login input:hover{
-/*form input:hover {*/
-  border-style: solid;
-  /*border-radius: 10px;
-  border-width: 1.5px; */
-}
-
-.form_login h1{
-/*form h1{*/
-  color: red;
-  font-size: 30px;
-  margin-bottom: 20px;
-  margin-left: -20px;
-}
-
-button {
-  border: none;
-  padding: 10px;
-  background: red;
-  color: azure;
-  font-weight: bold;
-  font-size: 18px;
-  transition: 1s;
-  margin-top:20px;
-  margin-left:90px;
-}
-
-:disabled{
-  background-color: #585b53;
-  cursor: not-allowed;
-}
-
-button:hover {
-  background: #252323;
-  color: azure;
-}
-
-button {
-    border: none;
-    padding: 10px;
-    background: #585b5e;
-    color: azure;
-    font-weight: bold;
-    font-size: 14px;
-    transition: 1s;
-    /*margin-top:20px;
-    margin-left:90px;*/
-  }
