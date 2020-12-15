@@ -8,8 +8,8 @@ import imgLogo from '../../../src/assets/img/beer.png'
 
 const Login = (props) => {
     const [auth, setAuth] = useState({
-        email: 'exemplo@cervejeiros.com.br',
-        senha: 'cerveja'
+        //email: 'exemplo@cervejeiros.com.br',
+        //senha: 'cerveja'
     })
 
     const history = useHistory()
@@ -27,7 +27,7 @@ const Login = (props) => {
     const submitLogin = async () => {
         if (isValidSubmit()) {
             const { data: { token } } = await authentication(auth)
-            clientHttp.defaults.headers['x-auth-token'] = token;
+            clientHttp.defaults.headers['x-auth-token'] = token;  // token de forma global
             saveToken(token)
             history.push('/')
 

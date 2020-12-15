@@ -12,11 +12,11 @@ import ErrorHandler from './views/errors/error';
 import history from './config/history';
 
 
-const CustomRoute = ({ ...rest }) => {
+const CustomRoute = ({ ...rest }) => {  //verificacao de autenticaçào de rota
     if (!isAuthenticated()) {
-        return <Redirect to='/login' />
+        return <Redirect to='/login' />  //caso nao aturozaido, reotrna para login
     }
-    return <Route {...rest} />
+    return <Route {...rest} /> //pega todo o resto
 }
 
 const Routers = () => (
@@ -24,6 +24,7 @@ const Routers = () => (
         <Switch>
             <Route exact path="/login" component={Login} />
             <Route exact path="/erro/:erro" component={ErrorHandler} />
+            
             <CustomRoute path="/" component={User} />
 
         </Switch>

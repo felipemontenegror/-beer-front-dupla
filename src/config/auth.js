@@ -1,10 +1,11 @@
-const TOKEN_KEY = 'bootcamp-infnet'
+const TOKEN_KEY = 'x-auth-token'
+//const TOKEN_KEY = 'bootcamp-infnet' no outro 'pizza-delicious'
 
-const getToken = () => localStorage.getItem(TOKEN_KEY)
+const getToken = () => localStorage.getItem(TOKEN_KEY)   //responsavel por reguperar um dado que foi salvo no localstorage
 
-const saveToken = (token) => localStorage.setItem(TOKEN_KEY, token)
+const saveToken = (token) => localStorage.setItem(TOKEN_KEY, token)  //guarda um novo valor na funcao
 
-const removeToken = () => localStorage.removeItem(TOKEN_KEY)
+const removeToken = () => localStorage.removeItem(TOKEN_KEY)   //remover um dado que foi salvo 
 
 
 const isAuthenticated = () => {

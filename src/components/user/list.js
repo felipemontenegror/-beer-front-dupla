@@ -46,6 +46,9 @@ const UserList = (props) => {
                 <td>{user.is_admin ? "SIM" : "NÃO"}</td>
                 <td>{user.nome}</td>
                 <td>{user.email}</td>
+                <td>{user.fabricante}</td>
+                <td>{user.nacionalidade}</td>
+                <td>{user.teoralcoolico}</td>
                 <td>
                     <span onClick={() => editUser(user)} >Editar</span> |
                     <span onClick={() => deleteUser(user)}>Excluir </span>
@@ -61,7 +64,9 @@ const UserList = (props) => {
                         <th>ADMIN</th>
                         <th>NOME</th>
                         <th>EMAIL</th>
-                        <th>AÇÕES</th>
+                        <th>FABRICANTE</th>
+                        <th>NACIONALIDADE</th>
+                        <th>TEOR</th>
                     </tr>
                 </thead>
                 <tbody>

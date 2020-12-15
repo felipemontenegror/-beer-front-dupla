@@ -106,7 +106,6 @@ const UserCreate = (props) => {
                                 value={form.senha || ""}
                                 placeholder={isEdit ? `Atualize sua senha ` : 'Informe sua senha'} />
                         </div>
-
                         <div>
                             <label htmlFor="auth_fabricante">Fabricante:</label>
                             <input disabled={isSubmit || isEdit} type="fabricante" id="auth_fabricante" name="fabricante" onChange={handleChange} value={form.fabricante || ""} placeholder="Insira o fabricante da cerveja" />
@@ -118,18 +117,8 @@ const UserCreate = (props) => {
                         </div>
 
                         <div>
-                            <label htmlFor="auth_tipo">Tipo:</label>
-                            <input disabled={isSubmit || isEdit} type="tipo" id="auth_tipo" name="nacionalidade" onChange={handleChange} value={form.tipo || ""} placeholder="Insira o tipo da cerveja" />
-                        </div>
-
-                        <div>
                             <label htmlFor="auth_teor">Teor Alcoólico:</label>
                             <input disabled={isSubmit || isEdit} type="teor" id="auth_teor" name="teor" onChange={handleChange} value={form.teor || ""} placeholder="Insira o teor alcoólico da cerveja" />
-                        </div>
-
-                        <div>
-                            <label htmlFor="auth_ibu">IBU:</label>
-                            <input disabled={isSubmit || isEdit} type="ibu" id="auth_ibu" name="ibu" onChange={handleChange} value={form.ibu || ""} placeholder="Insira o IBU da cerveja" />
                         </div>
 
                         <button disabled={!formIsValid()} onClick={submitForm}>

@@ -2,10 +2,15 @@ import axios from 'axios'
 import { getToken } from './auth'
 import history from './history';
 
-const clientHttp = axios.create({
-    // baseURL: `https://infnet-bootcamp-api.herokuapp.com/api`,
-    baseURL: `http://localhost:3001`
+
+const clientHttp = axios.create({  //axios responsavel por fazer requisicoes http (em producao e local)
+    baseURL: `https://beer-back.herokuapp.com/` || `http://localhost:3001`
+    
+// https://infnet-bootcamp-api.herokuapp.com/api
+
 })
+
+
 
 clientHttp.defaults.headers['Content-Type'] = 'application/json';
 
