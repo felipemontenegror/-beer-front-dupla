@@ -5,7 +5,8 @@ const createUser = (data) => clientHttp.post(`/user`, data)
 const updateUser = (data) => clientHttp.put(`/user/${data._id}`, data)
 // TODO: Verificar no back  a atualização
 
-const ListUser = () => clientHttp.get(`/user`)
+const ListUser = () => clientHttp.get(`/user`) // busca todos os usuarios
+const ListUserId = (id) => clientHttp.get(`/user/${id}`) //busca usuario pelo ID
 
 const DeleteUser = (id) => clientHttp.delete(`/user/${id}`)
 
@@ -16,5 +17,6 @@ export {
     ListUser,
     DeleteUser,
     showUserId,
-    updateUser
+    updateUser,
+    ListUserId
 }

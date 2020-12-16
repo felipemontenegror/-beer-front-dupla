@@ -1,5 +1,5 @@
-const TOKEN_KEY = 'x-auth-token'
-//const TOKEN_KEY = 'bootcamp-infnet' no outro 'pizza-delicious'
+//const TOKEN_KEY = 'x-auth-token'
+const TOKEN_KEY = 'bootcamp-infnet' 
 
 const getToken = () => localStorage.getItem(TOKEN_KEY)   //responsavel por reguperar um dado que foi salvo no localstorage
 
