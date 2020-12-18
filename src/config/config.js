@@ -4,10 +4,10 @@ import history from './history';
 
 
 const clientHttp = axios.create({  //axios responsavel por fazer requisicoes http (em producao e local)
-    baseURL: `https://beer-back.herokuapp.com/` || `http://localhost:3001`
+    baseURL: `https://beer-back-master.herokuapp.com/` || `http://localhost:3001`
     
-// https://infnet-bootcamp-api.herokuapp.com/api
-
+// `https://beer-back.herokuapp.com/` ||  <--- do Luiz Felipe nao funcionando
+//`https://beer-back-master.herokuapp.com/`  <---- do Lucas
 })
 
 

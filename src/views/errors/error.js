@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom'
 
 const messages = {
     '403': "Você não tem autorizacão",
-    '500': "Ocorreu um erro, tente novamente"
+    '500': "Ocorreu um erro, tente novamente!"
 }
 
 
