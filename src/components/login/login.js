@@ -8,8 +8,8 @@ import imgLogo from '../../../src/assets/img/beer.png'
 
 const Login = (props) => {
     const [auth, setAuth] = useState({
-        //email: 'exemplo@cervejeiros.com.br',
-        //senha: 'cerveja'
+        email: 'felipe@bootcamp.com.br',
+        senha: '123456'
     })
 
     const history = useHistory()
